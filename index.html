@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSCPE Faculty Attendance Checker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="app" class="dark">
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo" id="logoBtn">ATTENDANCE</div>
+      <div class="header-right">
+        <!-- Hamburger menu -->
+        <button id="hamburgerBtn" class="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+      
+      <!-- Mobile slide-down menu -->
+      <div id="mobileMenu" class="mobile-menu hidden" aria-hidden="true">
+        <button class="mobile-item" id="mobileMyRecords">
+          <span>My Records</span>
+        </button>
+        <button class="mobile-item" id="mobileAboutBtn">
+          <span>About</span>
+        </button>
+        <button class="mobile-item" id="mobileLogoutBtn">
+          <span>Logout</span>
+        </button>
+        
+        <!-- Dark mode toggle -->
+        <input type="checkbox" id="darkToggle" checked style="display:none" />
+        <div class="dm-display">
+          <label for="darkToggle" class="dm-label">
+            <div class="dm-circle">
+              <svg class="dm-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
+              </svg>
+              <svg class="dm-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Screen -->
+  <div id="loginScreen">
+    <!-- Dark mode toggle for login page -->
+    <div class="login-dark-toggle">
+      <input type="checkbox" id="loginDarkToggle" checked style="display:none" />
+      <div class="dm-display">
+        <label for="loginDarkToggle" class="dm-label">
+          <div class="dm-circle">
+            <svg class="dm-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
+            </svg>
+            <svg class="dm-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </label>
+      </div>
+    </div>
+    
+    <div class="login-container">
+      <div class="login-header">
+        <h1>BSCPE Faculty Attendance Checker</h1>
+        <p>Welcome! Please login to continue</p>
+      </div>
+      
+      <div class="error-message" id="loginError"></div>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">UID (Card Number)</label>
+          <input 
+            type="text" 
+            id="username" 
+            placeholder="Enter your UID" 
+            required
+            autocomplete="off"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="Enter password" 
+            required
+          >
+        </div>
+        
+        <button type="submit" class="btn" id="loginBtn">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Page -->
+  <div class="container" id="adminPage">
+    <div class="dashboard">
+      <div class="header">
+        <div class="header-top">
+          <h1>⚙️ Admin Control Panel</h1>
+          <div class="user-info">
+            <div class="user-name" id="adminUserName">Loading...</div>
+            <button class="btn-logout" id="backToAdminBtn">← Back to Dashboard</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <!-- Admin Actions Grid -->
+        <div class="admin-actions-grid">
+          <div class="admin-action-card" id="addMemberCard">
+            <div class="admin-action-icon">➕</div>
+            <h3>Add New Member</h3>
+            <p>Add a new faculty member to the system</p>
+            <button class="btn-admin-action">Open</button>
+          </div>
+          
+          <div class="admin-action-card" id="removeMemberCard">
+            <div class="admin-action-icon">❌</div>
+            <h3>Remove Member</h3>
+            <p>Remove a faculty member from the system</p>
+            <button class="btn-admin-action">Open</button>
+          </div>
+          
+          <div class="admin-action-card" id="resetDataCard">
+            <div class="admin-action-icon">🔄</div>
+            <h3>Reset All Data</h3>
+            <p>Clear all attendance records (requires password)</p>
+            <button class="btn-admin-action danger">Open</button>
+          </div>
+          
+          <div class="admin-action-card" id="viewMembersCard">
+            <div class="admin-action-icon">👥</div>
+            <h3>View All Members</h3>
+            <p>View and manage all registered members</p>
+            <button class="btn-admin-action">Open</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="container" id="dashboard">
+    <div class="dashboard">
+      <div class="header">
+        <div class="header-top">
+          <h1>📊 BSCPE Faculty Attendance Checker</h1>
+          <div class="user-info">
+            <div class="user-name" id="userName">Loading...</div>
+            <button class="btn-logout" id="logoutBtn">📄 My Records</button>
+          </div>
+        </div>
+        
+        <div class="header-controls">
+          <input 
+            type="date" 
+            class="date-picker" 
+            id="datePicker"
+          >
+          <button class="btn-refresh" id="refreshBtn">🔄 Refresh</button>
+        </div>
+      </div>
+
+      <div class="content">
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat-card blue">
+            <h3>Total Present Today</h3>
+            <div class="number" id="statPresent">0</div>
+          </div>
+          <div class="stat-card green">
+            <h3>Checked In</h3>
+            <div class="number" id="statIn">0</div>
+          </div>
+          <div class="stat-card orange">
+            <h3>Checked Out</h3>
+            <div class="number" id="statOut">0</div>
+          </div>
+          <div class="stat-card">
+            <h3>Total Members</h3>
+            <div class="number" id="statMembers">0</div>
+          </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="adminPanel">
+          <h2>⚙️ Admin Controls</h2>
+          <div class="admin-actions">
+            <button class="btn-admin danger" id="btnRemoveMember">Remove Member</button>
+            <button class="btn-admin success" id="btnDownloadReport">Download Report</button>
+            <button class="btn-admin info" id="btnEmailReport">Send Email Report</button>
+          </div>
+        </div>
+
+        <!-- Attendance Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <h2>Attendance Records</h2>
+          </div>
+          
+          <div class="table-wrapper">
+            <div class="loading" id="loadingIndicator">
+              <div class="spinner"></div>
+              <p>Loading attendance data...</p>
+            </div>
+            
+            <table id="attendanceTable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>In Time</th>
+                  <th>Out Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="attendanceBody">
+              </tbody>
+            </table>
+
+            <div class="empty-state" id="emptyState">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <h3>No attendance records found</h3>
+              <p>No one has checked in for the selected date</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remove Member Modal -->
+  <div class="modal" id="removeMemberModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Remove Member</h2>
+      </div>
+      <div class="modal-body">
+        <div class="loading" id="memberLoading">
+          <div class="spinner"></div>
+          <p>Loading members...</p>
+        </div>
+        <div class="member-list" id="memberList"></div>
+        <div class="success-message" id="removeSuccess"></div>
+        <div class="error-message" id="removeError"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal cancel" id="btnCloseModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
