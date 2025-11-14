@@ -1,5 +1,5 @@
 // API Configuration
-const API_URL = 'https://script.google.com/macros/s/AKfycbwCA0b-QD9JmUplU-1oxFq0j6nytTKli5p7QxB1EiXFICeIKOoHNy7w10tQxflbD2S2hg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxeANQih26FqxHbUy8GiUsRTrTteC0Z71itLnlJYCP2AXx3i9gACI2PEGe9caZpOtjvUg/exec';
 
 // Admin password for reset operations
 const ADMIN_PASSWORD = 'kimdev2025';
@@ -3613,3 +3613,4 @@ async function showAllMembersView() {
     loadingDiv.innerHTML = '<p style="color: var(--danger-color);">Error loading members: ' + error.message + '</p>';
   }
 }
+
