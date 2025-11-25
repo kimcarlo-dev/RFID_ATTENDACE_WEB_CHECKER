@@ -1,5 +1,5 @@
 // API Configuration
-const API_URL = 'https://script.google.com/macros/s/AKfycbw8TMWLmvTAmeYeIzE9neFlYJ1qryNODzFDvVfjhA8oC87eNDojr3iRsyuXf-rrUbUvVA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyY-dEQIZTeN6RP-u3KxkhCculwbGd85ON3mFIYERSQxENzVntQoe_0lCwa0AoE7ojd_w/exec';
 
 // Admin password for reset operations
 const ADMIN_PASSWORD = 'bscpe3ax2025';
@@ -3834,4 +3834,5 @@ async function showAllMembersView() {
     loadingDiv.innerHTML = '<p style="color: var(--danger-color);">Error loading members: ' + error.message + '</p>';
   }
 }
+
 
