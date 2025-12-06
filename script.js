@@ -2003,21 +2003,27 @@ async function downloadReport() {
     const response = await fetch(`${API_URL}?action=get_last_3_months_info`);
     const data = await response.json();
     
-    if (data.success && data.sheets && data.sheets.length > 0) {
-      // Build GID list for multiple sheets download
-      // Format: gid=sheet1,sheet2,sheet3
-      const gidList = data.sheets.map(sheet => sheet.sheetId).join(',');
-      
-      // Generate download URL for multiple sheets
-      const downloadUrl = `https://docs.google.com/spreadsheets/d/${data.spreadsheetId}/export?format=xlsx&gid=${gidList}`;
-      
-      // Open in new tab to trigger download
+    if (data && data.spreadsheetId) {
+      // Download the entire workbook as XLSX. Leaving out `gid` downloads full file.
+      const downloadUrl = `https://docs.google.com/spreadsheets/d/${data.spreadsheetId}/export?format=xlsx`;
       window.open(downloadUrl, '_blank');
-      
-      const sheetNames = data.sheets.map(s => s.sheetName).join(', ');
-      showNotification(`Downloading last ${data.totalSheets} months: ${sheetNames}`, 'success');
+      showNotification('Downloading workbook as XLSX', 'success');
+    } else if (data && data.sheets && data.sheets.length > 0) {
+      // Fallback: if spreadsheetId missing but sheets present, use first sheet's spreadsheetId if provided
+      const sid = data.spreadsheetId || data.sheets[0].spreadsheetId;
+      if (sid) {
+        const downloadUrl = `https://docs.google.com/spreadsheets/d/${sid}/export?format=xlsx`;
+        window.open(downloadUrl, '_blank');
+        showNotification('Downloading workbook as XLSX', 'success');
+      } else {
+        showNotification('Unable to determine spreadsheet ID for download', 'error');
+      }
     } else {
-      showNotification('No attendance sheets found for the last 3 months', 'error');
+      // Final fallback: use the spreadsheet ID provided by the user (shared link)
+      const fallbackId = '1Pk1cRDD36GGiG2r2grL8wp7oLjMUBF77SmBFpdFlIB0';
+      const downloadUrl = `https://docs.google.com/spreadsheets/d/${fallbackId}/export?format=xlsx`;
+      window.open(downloadUrl, '_blank');
+      showNotification('Downloading workbook (fallback ID) as XLSX', 'success');
     }
   } catch (error) {
     console.error('Download error:', error);
@@ -3834,5 +3840,4 @@ async function showAllMembersView() {
     loadingDiv.innerHTML = '<p style="color: var(--danger-color);">Error loading members: ' + error.message + '</p>';
   }
 }
-
 
